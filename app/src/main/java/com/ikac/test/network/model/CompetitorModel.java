@@ -2,17 +2,14 @@ package com.ikac.test.network.model;
 
 import com.google.gson.annotations.SerializedName;
 
-
 /**
  * Created by ikac on 3/21/18.
  */
 
-public class CompetitionModel extends BaseModel {
+public class CompetitorModel extends BaseModel {
 
     @SerializedName("ID")
     private int id;
-    @SerializedName("CID")
-    private int cid;
     @SerializedName("Name")
     private String name;
 
@@ -22,14 +19,6 @@ public class CompetitionModel extends BaseModel {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getCid() {
-        return cid;
-    }
-
-    public void setCid(int cid) {
-        this.cid = cid;
     }
 
     public String getName() {
@@ -42,11 +31,9 @@ public class CompetitionModel extends BaseModel {
 
     @Override
     public String toString() {
-        return "CompetitionModel{" +
+        return "CompetitorModel{" +
                 "id=" + id +
-                ", cid=" + cid +
                 ", name='" + name + '\'' +
                 '}';
     }
-
 }
