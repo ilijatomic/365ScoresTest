@@ -9,7 +9,7 @@ import com.ikac.test.common.dagger.DaggerAppComponent;
 /**
  * Application object
  */
-public class App extends Application {
+public final class App extends Application {
 
     private static AppComponent mAppComponent;
 
