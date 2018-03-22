@@ -15,7 +15,7 @@ public class GameModel extends BaseModel {
     @SerializedName("ID")
     private int id;
     @SerializedName("Comp")
-    private int competitorId;
+    private int competitionId;
     @SerializedName("Active")
     private boolean active;
     @SerializedName("GT")
@@ -35,12 +35,12 @@ public class GameModel extends BaseModel {
         this.id = id;
     }
 
-    public int getCompetitorId() {
-        return competitorId;
+    public int getCompetitionId() {
+        return competitionId;
     }
 
-    public void setCompetitorId(int competitorId) {
-        this.competitorId = competitorId;
+    public void setCompetitionId(int competitionId) {
+        this.competitionId = competitionId;
     }
 
     public boolean isActive() {
@@ -87,7 +87,7 @@ public class GameModel extends BaseModel {
     public String toString() {
         return "GameModel{" +
                 "id=" + id +
-                ", competitorId=" + competitorId +
+                ", competitionId=" + competitionId +
                 ", active=" + active +
                 ", gameTime=" + gameTime +
                 ", startTime='" + startTime + '\'' +
