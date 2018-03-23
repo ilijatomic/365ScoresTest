@@ -3,6 +3,7 @@ package com.ikac.test.screens.home;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 
 import com.ikac.a365scorestest.R;
 import com.ikac.test.common.App;
@@ -11,6 +12,7 @@ import com.ikac.test.screens.home.dagger.HomeModule;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -18,8 +20,13 @@ import butterknife.ButterKnife;
  */
 public class HomeActivity extends AppCompatActivity implements HomeView {
 
+    @BindView(R.id.home_recycler_view)
+    private RecyclerView mRecyclerView;
+
     @Inject
     HomePresenter mHomePresenter;
+
+    private HomeAdapter mHomeAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

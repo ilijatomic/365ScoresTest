@@ -20,7 +20,7 @@ public class HomePresenter {
         mNetworkManager = networkManager;
     }
 
-    public void startPullRequest() {
+    void startPullRequest() {
         // TODO implement pull request timer
         loadData();
     }
