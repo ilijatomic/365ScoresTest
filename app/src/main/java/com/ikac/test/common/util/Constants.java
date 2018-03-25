@@ -13,4 +13,10 @@ public class Constants {
 
     public static final long READ_TIMEOUT = 60;
     public static final long CONNECTION_TIMEOUT = 60;
+
+    public static final long SYNC_INTERVAL = 5;
+
+    public static final String DATE_FORMAT_FROM = "dd-MM-yyyy hh:mm";
+    public static final String DATE_FORMAT_TO = "dd/MM hh:mm";
+
 }

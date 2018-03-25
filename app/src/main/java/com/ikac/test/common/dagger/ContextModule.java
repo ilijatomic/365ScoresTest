@@ -1,7 +1,6 @@
 package com.ikac.test.common.dagger;
 
 import android.content.Context;
-import android.os.Handler;
 
 import javax.inject.Singleton;
 

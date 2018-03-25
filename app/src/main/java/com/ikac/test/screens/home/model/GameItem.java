@@ -9,9 +9,11 @@ public class GameItem extends HomeListItem {
     private boolean active;
     private int gameTime;
     private String startTime;
-    private int[] score = new int[2];
+    private int[] score;
     private String teamOne;
+    private int teamOneId;
     private String teamTwo;
+    private int teamTwoId;
 
     public boolean isActive() {
         return active;
@@ -59,6 +61,22 @@ public class GameItem extends HomeListItem {
 
     public void setTeamTwo(String teamTwo) {
         this.teamTwo = teamTwo;
+    }
+
+    public int getTeamOneId() {
+        return teamOneId;
+    }
+
+    public void setTeamOneId(int teamOneId) {
+        this.teamOneId = teamOneId;
+    }
+
+    public int getTeamTwoId() {
+        return teamTwoId;
+    }
+
+    public void setTeamTwoId(int teamTwoId) {
+        this.teamTwoId = teamTwoId;
     }
 
     @Override

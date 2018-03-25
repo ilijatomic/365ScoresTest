@@ -7,6 +7,7 @@ package com.ikac.test.screens.home.model;
 public class CompetitionItem extends HomeListItem {
 
     private int id;
+    private int cid;
     private String name;
 
     public int getId() {
@@ -23,6 +24,14 @@ public class CompetitionItem extends HomeListItem {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getCid() {
+        return cid;
+    }
+
+    public void setCid(int cid) {
+        this.cid = cid;
     }
 
     @Override

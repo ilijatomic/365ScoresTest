@@ -2,6 +2,8 @@ package com.ikac.test.network.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 
 /**
  * Created by ikac on 3/21/18.
@@ -38,6 +40,11 @@ public class CompetitionModel extends BaseModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(id).append(cid).append(name).toHashCode();
     }
 
     @Override

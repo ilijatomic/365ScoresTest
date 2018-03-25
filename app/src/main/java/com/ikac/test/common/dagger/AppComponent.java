@@ -17,7 +17,10 @@ import dagger.Component;
 @Component(modules = {ContextModule.class, NetworkModule.class, ImageModule.class})
 public interface AppComponent {
     Context context();
+
     ServiceApi serviceApi();
+
     Gson gson();
+
     NetworkManager networkManager();
 }
