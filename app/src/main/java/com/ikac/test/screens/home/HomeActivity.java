@@ -2,6 +2,7 @@ package com.ikac.test.screens.home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,10 +24,12 @@ import butterknife.ButterKnife;
 /**
  * Home screen of application
  */
-public class HomeActivity extends AppCompatActivity implements HomeView {
+public class HomeActivity extends AppCompatActivity implements HomeView, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.home_recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.home_swipe_view)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Inject
     HomePresenter mHomePresenter;
@@ -42,20 +45,34 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
         mHomeAdapter = new HomeAdapter(this);
 
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mHomeAdapter);
 
+        mSwipeRefreshLayout.setRefreshing(true);
         mHomePresenter.startPullRequest();
     }
 
     @Override
+    protected void onDestroy() {
+        mHomePresenter.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
     public void showGames(List<HomeListItem> games) {
+        mSwipeRefreshLayout.setRefreshing(false);
         mHomeAdapter.setGamesList(games);
     }
 
     @Override
     public void showError() {
+        mSwipeRefreshLayout.setRefreshing(false);
         Toast.makeText(this, "Upps. Something went wrong. Please check your internet connection.", Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void onRefresh() {
+        mHomePresenter.startPullRequest();
+    }
 }

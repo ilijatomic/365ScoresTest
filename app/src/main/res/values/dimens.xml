@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="competition_text_size">16sp</dimen>
+    <dimen name="game_text_size">14sp</dimen>
+
+    <dimen name="logo_image_size">25dp</dimen>
+    <dimen name="logo_image_margin_left">5dp</dimen>
+    <dimen name="logo_image_margin_right">5dp</dimen>
+
+    <dimen name="item_margin_bottom">5dp</dimen>
+    <dimen name="item_comp_margin_left">10dp</dimen>
+    <dimen name="item_game_margin_left">25dp</dimen>
+
+</resources>
