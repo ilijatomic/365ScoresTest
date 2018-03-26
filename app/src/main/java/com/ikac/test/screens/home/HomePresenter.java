@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -36,8 +37,16 @@ public class HomePresenter {
         mDisposables = new CompositeDisposable();
     }
 
-    void loadData() {
-        Disposable disposable = mNetworkManager.getGames()
+    void startPolling() {
+        Disposable disposable = Observable.interval(0, Constants.SYNC_INTERVAL, TimeUnit.SECONDS)
+                .filter(t -> NetworkUtils.isOnlineMode())
+                .subscribe(this::loadData);
+
+        mDisposables.add(disposable);
+    }
+
+    private void loadData(long value) {
+        mNetworkManager.getGames()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
@@ -47,8 +56,10 @@ public class HomePresenter {
                     Log.e(TAG, "Couldn't load games: " + error);
                     mHomeView.showError();
                 });
+    }
 
-        mDisposables.add(disposable);
+    void clear() {
+        mDisposables.clear();
     }
 
     void onDestroy() {

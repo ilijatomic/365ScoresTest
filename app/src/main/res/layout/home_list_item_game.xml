@@ -56,7 +56,7 @@
             android:layout_height="@dimen/logo_image_size"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/item_game_margin_left"
+            android:layout_marginStart="@dimen/logo_image_margin_left"
             android:layout_marginEnd="@dimen/logo_image_margin_right" />
 
     </RelativeLayout>

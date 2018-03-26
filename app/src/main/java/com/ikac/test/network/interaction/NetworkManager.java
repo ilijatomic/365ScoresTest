@@ -3,6 +3,8 @@ package com.ikac.test.network.interaction;
 import android.util.Log;
 import android.util.SparseArray;
 
+import com.ikac.test.common.util.Constants;
+import com.ikac.test.common.util.NetworkUtils;
 import com.ikac.test.network.api.ServiceApi;
 import com.ikac.test.network.model.CompetitionModel;
 import com.ikac.test.network.model.CompetitorModel;
@@ -15,10 +17,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**
@@ -48,6 +52,9 @@ public final class NetworkManager {
                     if (fullModel.getLastUpdateId() ==  mLastUpdateId) {
                         return Single.just(Collections.emptyList());
                     }
+
+                    mCompetitionSparse.clear();
+                    mGameMap.clear();
 
                     for (CompetitionModel competitionModel : fullModel.getCompetitionModelList()) {
                         mCompetitionSparse.put(competitionModel.getId(), competitionModel);

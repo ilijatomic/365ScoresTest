@@ -57,7 +57,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SwipeRe
         mRecyclerView.setAdapter(mHomeAdapter);
 
         mSwipeRefreshLayout.setRefreshing(true);
-        mHomePresenter.loadData();
+        mHomePresenter.startPolling();
     }
 
     @Override
@@ -82,7 +82,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SwipeRe
 
     @Override
     public void onRefresh() {
-        mHomePresenter.onDestroy();
-        mHomePresenter.loadData();
+        mHomePresenter.clear();
+        mHomePresenter.startPolling();
     }
 }
