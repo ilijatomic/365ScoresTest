@@ -3,10 +3,15 @@ package com.ikac.test.screens.home;
 import android.util.Log;
 
 import com.ikac.test.common.dagger.ActivityScope;
+import com.ikac.test.common.util.Constants;
+import com.ikac.test.common.util.NetworkUtils;
 import com.ikac.test.network.interaction.NetworkManager;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -31,12 +36,7 @@ public class HomePresenter {
         mDisposables = new CompositeDisposable();
     }
 
-    void startPullRequest() {
-        // TODO implement pull request timer
-        loadData();
-    }
-
-    private void loadData() {
+    void loadData() {
         Disposable disposable = mNetworkManager.getGames()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

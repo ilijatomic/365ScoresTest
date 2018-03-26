@@ -39,7 +39,14 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SwipeRe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DaggerHomeComponent.builder().appComponent(App.getAppComponent()).homeModule(new HomeModule(this)).build().inject(this);
+
+        DaggerHomeComponent
+                .builder()
+                .appComponent(App.getAppComponent())
+                .homeModule(new HomeModule(this))
+                .build()
+                .inject(this);
+
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
@@ -50,7 +57,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SwipeRe
         mRecyclerView.setAdapter(mHomeAdapter);
 
         mSwipeRefreshLayout.setRefreshing(true);
-        mHomePresenter.startPullRequest();
+        mHomePresenter.loadData();
     }
 
     @Override
@@ -62,7 +69,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SwipeRe
     @Override
     public void showGames(List<HomeListItem> games) {
         mSwipeRefreshLayout.setRefreshing(false);
-        mHomeAdapter.setGamesList(games);
+        if (!games.isEmpty()) {
+            mHomeAdapter.setGamesList(games);
+        }
     }
 
     @Override
@@ -73,6 +82,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SwipeRe
 
     @Override
     public void onRefresh() {
-        mHomePresenter.startPullRequest();
+        mHomePresenter.onDestroy();
+        mHomePresenter.loadData();
     }
 }

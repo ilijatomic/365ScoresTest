@@ -12,6 +12,7 @@ import com.ikac.test.screens.home.model.GameItem;
 import com.ikac.test.screens.home.model.HomeListItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public final class NetworkManager {
 
     private static final String TAG = NetworkManager.class.getSimpleName();
 
+    private int mLastUpdateId;
     private ServiceApi mServiceApi;
     private SparseArray<CompetitionModel> mCompetitionSparse = new SparseArray<>();
     private HashMap<CompetitionModel, List<GameModel>> mGameMap = new HashMap<>();
@@ -39,8 +41,13 @@ public final class NetworkManager {
 
     public Single<List<HomeListItem>> getGames() {
         return mServiceApi.getGames()
+                .doOnError(Single::error)
                 .flatMap(fullModel -> {
                     Log.d(TAG, "getGames: " + fullModel.getLastUpdateId());
+
+                    if (fullModel.getLastUpdateId() ==  mLastUpdateId) {
+                        return Single.just(Collections.emptyList());
+                    }
 
                     for (CompetitionModel competitionModel : fullModel.getCompetitionModelList()) {
                         mCompetitionSparse.put(competitionModel.getId(), competitionModel);
@@ -86,8 +93,9 @@ public final class NetworkManager {
                     Log.d(TAG, "getGames: " + result.size());
 
                     if (result.isEmpty()) {
-                        return null;
+                        return Single.error(new Throwable());
                     } else {
+                        mLastUpdateId = fullModel.getLastUpdateId();
                         return Single.just(result);
                     }
                 });
